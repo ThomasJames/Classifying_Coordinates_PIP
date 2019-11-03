@@ -129,7 +129,6 @@ if __name__ == "__main__":
         output_file.write(i + "\n")
 
 
-
     # # Plots visualised through the matplotlib module
     # plotter = Plotter()
     # plotter.add_point(coordinatex[1:100], coordinatey[1:100], boundbox_output[1:100])
@@ -140,48 +139,34 @@ if __name__ == "__main__":
     # plotter.add_polygon(shapex, shapey)
     # plotter.show()
 
-    # SET counting to 0
-    counting = 0
+    b = []
 
-    # Check to see if point lies each side of polygon:
 
-    # polygon_boarder = []
-    # # for i in range(len(coordinates)):
-    # #     if shapex[i] == (coordinatex[i]):
-    # #         polygon_boarder.append("boundary")
-    # #     else:
-    # #         break
-    # print(polygon_boarder)
+    # if coordinatey[1] == (coordinatex[1] - shapex[3])/(shapex[4]-shapex[3])*(shapey[4]-shapey[3])+shapey[3]:
+    #     #     b.append('boundry')
+    #     # else:
+    #     #     b.append("unclassified")
+    c = []
 
-    import math
-    point_on_line = []
-    # Does the point cross the line parallel to the x axis?
-    for i in range(len(coordinates)):
-        if coordinatex[i] == 0 and 1 > coordinatey[i] < 6:
-            point_on_line.append("boundary")
-        elif coordinatex[i] == 1 and 2 > coordinatey[i] < 5:
-            point_on_line.append("boundary")
-        elif coordinatex[i] == 2 and 2 > coordinatey[i] < 3:
-            point_on_line.append("boundary")
-        elif coordinatex[i] == 3 and 4 > coordinatey[i] < 5:
-            point_on_line.append("boundary")
-        elif coordinatex[i] == 4 and 1 > coordinatey[i] < 3:
-            point_on_line.append("boundary")
-        elif coordinatex[i] == 4 and 4 > coordinatey[i] < 6:
-            point_on_line.append("boundary")
-        elif coordinatey[i] == 0 and 1 > coordinatex[i] < 3:
-            point_on_line.append("boundary")
-        elif coordinatey[i] == 2 and 2 > coordinatex[i] < 3:
-            point_on_line.append("boundary")
-        elif coordinatey[i] == 3 and 2 > coordinatex[i] < 4:
-            point_on_line.append("boundary")
-        elif coordinatey[i] == 4 and 3 > coordinatex[i] < 4:
-            point_on_line.append("boundary")
-        elif coordinatey[i] == 7 and 1 > coordinatex[i] < 3:
-            point_on_line.append("boundary")
-        elif coordinatey[i] == (coordinatex[i]/-1)*(1-0):
-            point_on_line.append("boundary")
-        print(point_on_line)
+    def iscoordinateonaparallelaxis(a):
+
+        if coordinatex[a] == shapex[1] and shapey[0] < coordinatey[a] < shapey[1]:
+            c.append('boundry')
+        else:
+         c.append("unclassified")
+        print(c)
+
+    iscoordinateonaparallelaxis(14)
+
+
+
+    for i in range(100):
+        if coordinatey[1] == (coordinatex[1] - shapex[10])/(shapex[11]-shapex[10])*(shapey[11]-shapey[10])+shapey[10]:
+            b.append('boundry')
+        else:
+            b.append("unclassified")
+
+    print(b)
 
 
 
@@ -201,16 +186,6 @@ if __name__ == "__main__":
 
 
 
-    # Algorithm to check whether a point crosses any line.
-    #     IF ray crosses the line then its outside the polygon:
 
 
-
-
-
-    #         THEN INC counting by 1
-    # if counting %2 == 0:
-    #     print ("outside")
-    # else:
-    #     print ("inside")
 
