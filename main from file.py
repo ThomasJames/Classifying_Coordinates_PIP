@@ -42,6 +42,7 @@ if __name__ == "__main__":
     sample_output =[]
     boundbox_output = []
 
+
     #Class containing a selection of methods
 
     class File_reader:
@@ -139,34 +140,111 @@ if __name__ == "__main__":
     # plotter.add_polygon(shapex, shapey)
     # plotter.show()
 
-    b = []
+
+    # poly_boundry = []
+    #
+    # def iscoordinateonaparallelaxis(a):
+    #     for i in range(len(shapey)):
+    #         if coordinatex[a] == shapex[i] and shapey[i] < coordinatey[a] < shapey[i+1]:
+    #             poly_boundry.append('boundry')
+    #         elif coordinatey[a] == shapey[i] and shapex[i] < coordinatex[a] < shapex[i+1]:
+    #             poly_boundry.append('boundry')
+    #         elif coordinatey[a] == (coordinatex[a] - shapex[i]) / (shapex[i+1] - shapex[i]) * (
+    #                 shapey[i+1] - shapey[i]) + shapey[i]:
+    #             poly_boundry.append('boundry')
+    #         else:
+    #             poly_boundry.append("unclassified")
+    #         print(poly_boundry)
+    #
+    # iscoordinateonaparallelaxis(1)
 
 
-    # if coordinatey[1] == (coordinatex[1] - shapex[3])/(shapex[4]-shapex[3])*(shapey[4]-shapey[3])+shapey[3]:
-    #     #     b.append('boundry')
-    #     # else:
-    #     #     b.append("unclassified")
-    c = []
+    test = []
+    # Function contains a loop
+    # checks if x coordinate is parallel with x within bounds
+    # Checks if y coordinate is parallel with y within bounds
+    # checks if coordinate lies on a line not parallel to the x or y coordinate
+    # else it doesnt pass anything into the list
+    def coordinatenumber(a):
+        for i in range(19):
+            if coordinatex[a] == shapex[i] and shapey[i] <= coordinatey[a] <= shapey[i+1]:
+                test.append('boundary')
+            elif coordinatey[a] == shapey[i] and shapex[i] >= coordinatex[a] >= shapex[i+1]:
+                test.append('boundary')
+            # elif coordinatey[a] == (coordinatex[a] - shapex[i]) / (shapex[i+1] - shapex[i]) * (shapey[i+1] - shapey[i]) + shapey[i]:
+            #     test.append('boundary')
+            #     break
+            else:
+                print("unclassified")
+    coordinatenumber(0)
+    coordinatenumber(1)
+    coordinatenumber(2)
+    coordinatenumber(3)
+    coordinatenumber(4)
+    coordinatenumber(5)
+    coordinatenumber(6)
+    coordinatenumber(7)
+    coordinatenumber(8)
+    coordinatenumber(9)
+    coordinatenumber(10)
+    coordinatenumber(11)
+    coordinatenumber(12)
+    coordinatenumber(13)
+    coordinatenumber(14)
+    coordinatenumber(15)
+    coordinatenumber(16)
+    coordinatenumber(17)
+    coordinatenumber(18)
+    coordinatenumber(19)
+    coordinatenumber(21)
+    coordinatenumber(22)
+    coordinatenumber(23)
+    coordinatenumber(24)
+    coordinatenumber(25)
+    coordinatenumber(26)
+    coordinatenumber(27)
+    coordinatenumber(28)
+    coordinatenumber(29)
+    coordinatenumber(30)
+    coordinatenumber(31)
+    coordinatenumber(32)
+    coordinatenumber(33)
+    coordinatenumber(34)
+    coordinatenumber(35)
+    coordinatenumber(36)
+    coordinatenumber(37)
+    coordinatenumber(38)
+    coordinatenumber(39)
+    coordinatenumber(40)
+    coordinatenumber(41)
+    coordinatenumber(42)
+    coordinatenumber(43)
+    coordinatenumber(44)
+    coordinatenumber(45)
+    coordinatenumber(46)
+    coordinatenumber(47)
+    coordinatenumber(48)
+    coordinatenumber(49)
+    coordinatenumber(50)
 
-    def iscoordinateonaparallelaxis(a):
-
-        if coordinatex[a] == shapex[1] and shapey[0] < coordinatey[a] < shapey[1]:
-            c.append('boundry')
-        else:
-         c.append("unclassified")
-        print(c)
-
-    iscoordinateonaparallelaxis(14)
 
 
 
-    for i in range(100):
-        if coordinatey[1] == (coordinatex[1] - shapex[10])/(shapex[11]-shapex[10])*(shapey[11]-shapey[10])+shapey[10]:
-            b.append('boundry')
-        else:
-            b.append("unclassified")
 
-    print(b)
+    # coordinatenumber(27)
+    # coordinatenumber(5)
+    # coordinatenumber(55)
+    # coordinatenumber(76)
+    # coordinatenumber(34)
+
+    print(test)
+
+
+
+
+
+
+
 
 
 
