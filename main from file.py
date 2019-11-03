@@ -169,18 +169,18 @@ if __name__ == "__main__":
 
     def yparalellanticlockwise(a):
         for i in range(19):
-            if coordinatey[a] = shapey[i]:
-                if
+            if coordinatey[a] == shapey[i]:
+                if shapex[i+1] < shapex[i] and shapex[i] > coordinate[a] > shape[i+1]:
+                    list.append("boundary")
+                else:
+                    continue
 
 
-
-
-
-
-    for i in range(100):
+    for i in range(99):
         yparalellclockwise(i)
-        # xparalellanticlockwise(i)
-        # xparalellanticlockwise(i)
+        yparalellclockwise(i)
+        xparalellanticlockwise(i)
+        xparalellanticlockwise(i)
 
     print(list)
 
