@@ -102,23 +102,30 @@ if __name__ == "__main__":
 
     # work out a way to input the values of max and min to a method - To give a bounding of ay box
     # def point_location_generator:
-    class plotdecider:
-        def minimumbound(x_min, x_max, y_min, y_max):
-            for i in range(len(coordinates)):
-                if x_min < (coordinatex[i]) < x_max and y_min < (coordinatey[i]) < y_max:
-                    boundbox_output.append("inside")
-                elif x_min == coordinatex[i] and y_min < coordinatey[i] < y_max:
-                    boundbox_output.append("boundary")
-                elif x_max == coordinatex[i] and y_min < coordinatey[i] < y_max:
-                    boundbox_output.append("boundary")
-                elif y_min == coordinatey[i] and x_min < coordinatex[i] < x_max:
-                    boundbox_output.append("boundary")
-                elif y_max == coordinatey[i] and x_min < coordinatex[i] < x_max:
-                    boundbox_output.append("boundary")
-                else:
-                    boundbox_output.append("outside")
 
-    plotdecider.minimumbound(0, 4, 0, 7)
+    def minimumbound(x_min, x_max, y_min, y_max):
+        for i in range(len(coordinates)):
+            if x_min < (coordinatex[i]) < x_max and y_min < (coordinatey[i]) < y_max:
+                boundbox_output.append("inside")
+            elif x_min == coordinatex[i] and y_min < coordinatey[i] < y_max:
+                boundbox_output.append("boundary")
+            elif x_max == coordinatex[i] and y_min < coordinatey[i] < y_max:
+                boundbox_output.append("boundary")
+            elif y_min == coordinatey[i] and x_min < coordinatex[i] < x_max:
+                boundbox_output.append("boundary")
+            elif y_max == coordinatey[i] and x_min < coordinatex[i] < x_max:
+                boundbox_output.append("boundary")
+            else:
+                boundbox_output.append("outside")
+
+
+    minimumbound(0, 4, 0, 7)
+
+
+    
+    
+
+
 
 
     # Create a list from 1 - 100, that can be used for indexing of the
@@ -134,113 +141,161 @@ if __name__ == "__main__":
     for i in boundbox_output:
         output_file.write(i + "\n")
 
-    # list = []
+######################################################################################################################################
+
+    list = []
     # def polyboardercheck2(b):
     #     for i in range(19):
     #         if shapey[i] <= coordinatey[b] <= shapey[i+1]:
-    #             if coordinatex[b] == shapex[i] or coordinatex[b] == shapex[i+1]:
+    #             if coordinatex[b] == shapex[i] or shapex[i+1]:
     #                 list.append("boundary")
     #                 break
-    #         elif shapex[i] <= coordinatex[b] <= shapex[i+1]:
-    #             if coordinatey[b] == shapey[i] or coordinatey[b] == shapey[i+1]:
-    #                 list.append("boundary")
-    #                 break
+    #             else:
+    #                 if coordinatey[b] == (coordinatex[b] - shapex[i]) / (shapey[i+2] - shapey[i]) * (shapey[i+2] - shapey[i]) + shapey[i]:
+    #                     list.append("boundary")
+    #                     break
     #         else:
     #             list.append("unclassified")
     #             break
-    #
-    # for n in range(len(coordinatex)):
-    #     polyboardercheck2(n)
-    #
-    # print(list)
+
+
+    def polyboardercheck2(b):
+        for i in range(19):
+            if shapey[i] <= coordinatey[b] <= shapey[i+1]:
+                if coordinatex[b] == shapex[i] or shapex[i+1]:
+                    list.append("boundary")
+                    break
+            elif shapex[i] <= coordinatex[b] <= shapex[i+1]:
+                if coordinatey[b] == shapey[i] or shapey[i+1]:
+                    list.append("boundry")
+                    break
+            elif
+                if coordinatey[b] == (coordinatex[b] - shapex[i]) * (shapey[i+2] - shapey[i]) + shapey[i]:
+                    list.append("boundry")
+                    break
+                    if coordinatey == (coordinatex[b] - shapex[i]) / (shapey[i+2] - shapey[i]) * (shapey[i+2] - shapey[i]) + shapey[i]:
+                        list.append("boundry")
+                        break
+            else:
+                list.append("unclassified")
+                break
+
+    for n in range(len(coordinatex)):
+        polyboardercheck2(n)
+
+    print(list)
 
 
  # Plots visualised through the matplotlib module
     plotter = Plotter()
-    plotter.add_point(coordinatex[59], coordinatey[59], boundbox_output[59])
-    plotter.add_point(coordinatex[55], coordinatey[55], boundbox_output[55])
-    plotter.add_point(coordinatex[91], coordinatey[91], boundbox_output[91])
-    plotter.add_point(coordinatex[52], coordinatey[52], boundbox_output[52])
-    plotter.add_point(coordinatex[5], coordinatey[5], boundbox_output[5])
-    plotter.add_point(coordinatex[6], coordinatey[6], boundbox_output[6])
-    plotter.add_point(coordinatex[7], coordinatey[7], boundbox_output[7])
-    plotter.add_point(coordinatex[8], coordinatey[8], boundbox_output[8])
-    plotter.add_point(coordinatex[34], coordinatey[34], boundbox_output[34])
-    plotter.add_point(coordinatex[15], coordinatey[15], boundbox_output[15])
-    plotter.add_point(coordinatex[28], coordinatey[28], boundbox_output[28])
-    plotter.add_point(coordinatex[14], coordinatey[14], boundbox_output[14])
-    plotter.add_point(coordinatex[85], coordinatey[85], boundbox_output[85])
-    plotter.add_point(coordinatex[97], coordinatey[97], boundbox_output[97])
-    plotter.add_point(coordinatex[30], coordinatey[30], boundbox_output[30])
-    plotter.add_point(coordinatex[27], coordinatey[27], boundbox_output[27])
+    plotter.add_point(coordinatex[1], coordinatey[1], list[1])
+    plotter.add_point(coordinatex[2], coordinatey[2], list[2])
+    plotter.add_point(coordinatex[3], coordinatey[3], list[3])
+    plotter.add_point(coordinatex[4], coordinatey[4], list[4])
+    plotter.add_point(coordinatex[5], coordinatey[5], list[5])
+    plotter.add_point(coordinatex[6], coordinatey[6], list[6])
+    plotter.add_point(coordinatex[7], coordinatey[7], list[7])
+    plotter.add_point(coordinatex[8], coordinatey[8], list[8])
+    plotter.add_point(coordinatex[9], coordinatey[9], list[9])
+    plotter.add_point(coordinatex[10], coordinatey[10], list[10])
+    plotter.add_point(coordinatex[11], coordinatey[11], list[11])
+    plotter.add_point(coordinatex[12], coordinatey[12], list[12])
+    plotter.add_point(coordinatex[13], coordinatey[13], list[13])
+    plotter.add_point(coordinatex[14], coordinatey[14], list[14])
+    plotter.add_point(coordinatex[15], coordinatey[15], list[15])
+    plotter.add_point(coordinatex[16], coordinatey[16], list[16])
+    plotter.add_point(coordinatex[17], coordinatey[17], list[17])
+    plotter.add_point(coordinatex[14], coordinatey[14], list[14])
+    plotter.add_point(coordinatex[15], coordinatey[15], list[15])
+    plotter.add_point(coordinatex[17], coordinatey[17], list[17])
+    plotter.add_point(coordinatex[16], coordinatey[16], list[16])
+    plotter.add_point(coordinatex[17], coordinatey[17], list[17])
+    plotter.add_point(coordinatex[18], coordinatey[18], list[18])
+    plotter.add_point(coordinatex[19], coordinatey[19], list[19])
+    plotter.add_point(coordinatex[20], coordinatey[20], list[20])
+    plotter.add_point(coordinatex[81], coordinatey[81], list[81])
+    plotter.add_point(coordinatex[82], coordinatey[82], list[82])
+    plotter.add_point(coordinatex[83], coordinatey[83], list[83])
+    plotter.add_point(coordinatex[84], coordinatey[84], list[84])
+    plotter.add_point(coordinatex[85], coordinatey[85], list[85])
+    plotter.add_point(coordinatex[86], coordinatey[86], list[86])
+    plotter.add_point(coordinatex[87], coordinatey[87], list[87])
+    plotter.add_point(coordinatex[88], coordinatey[88], list[88])
+    plotter.add_point(coordinatex[89], coordinatey[89], list[89])
+    plotter.add_point(coordinatex[90], coordinatey[90], list[90])
+    plotter.add_point(coordinatex[91], coordinatey[91], list[91])
+    plotter.add_point(coordinatex[92], coordinatey[92], list[92])
+    plotter.add_point(coordinatex[93], coordinatey[93], list[93])
+    plotter.add_point(coordinatex[94], coordinatey[94], list[94])
+
 
     plotter.add_boarder(boundboxx, boundboxy)
     plotter.add_polygon(shapex, shapey)
     plotter.show()
 
-    # import math
-    list = []
-    # Identify boundry points on the north direction
-    # def parallel_to_x_north(a):
-    #     for i in range(19):
-    #         if coordinatex[a] == shapex[i]:
-    #             if shapey[i+1] > shapey[i] and shapey[i+1] > coordinatey[a] > shapey[i]:
-    #                 list.append("boundary")
-    #                 break
-    #             else:
-    #                 continue
-    #
-    # def parallel_to_x_south(a):
-    #     for i in range(19):
-    #         if coordinatex[a] == shapex[i]:
-    #             if shapey[i] > shapey[i+1] and shapey[i] > coordinatey[a] > shapey[i+1]:
-    #                 list.append("boundary")
-    #                 break
-    #             else:
-    #                 continue
-    #
-    # def parallel_to_y_east(a):
-    #     for i in range(19):
-    #         if coordinatey[a] == shapey[i]:
-    #             if shapex[i+1] > shapex[i] and shapex[i] < coordinatex[a] < shapex[i+1]:
-    #                 list.append("boundary")
-    #                 break
-    #             else:
-    #                 continue
-    #
-    # def parallel_to_y_west(a):
-    #     for i in range(19):
-    #         if coordinatey[a] == shapey[i]:
-    #             if shapex[i+1] < shapex[i] and shapex[i] > coordinatex[a] > shapex[i+1]:
-    #                 list.append("boundary")
-    #                 break
-    #             else:
-    #                 continue
-        # for i in range(99):
-        #     # parallel_to_x_north(i)
-        #     # parallel_to_x_south(i)
-        #     # parallel_to_y_east(i)
-        #     # parallel_to_y_west(i)
-        #     # nonparalellline(i)
-        #
-        #
-        # print(list)                               #
 
 
-    #
-    # def nonparalellline(a):
-    #     for i in range(19):
-    #         if (shapex[i+1] - shapex[i]) > 0:
-    #             if coordinatey[a] == (coordinatex[a] - shapex[i]) / (shapex[i+1] - shapex[i]) * (shapey[i+1] - shapey[i]) + shapey[i]:
-    #                 list.append('boundary')
-    #             elif (shapey[i+1] - shapey[i]) > 0:
-    #                 if coordinatex[a] == (coordinatey[a] - shapey[i]) / (shapey[i+1] - shapey[i]) * (shapex[i+1] - shapex[i]) + shapex[i]:
-    #                     list.append('boundary')
-    #             else:
-    #                 continue
-    #
-    # nonparalellline()
-    # print(list)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
