@@ -2,6 +2,8 @@ from plotter import Plotter
 import matplotlib.pyplot as plt
 
 
+
+
 # Function to define minimum and maximum bounds of the polygon
 # provides an output that states the location of the
 # True - Inside, 1 - Boundary, False - Outside
@@ -31,10 +33,9 @@ def ray_casting(pt,
     n = len(pg) - 1
     counter = 0  # Set counter to zero
     for j in range(n):  # loop through polygon lines
-        if (pg[j][1] <= pt[1] < pg[j + 1][1]) or (
-                pg[j][1] > pt[1] >= pg[j + 1][1]):  # Calculate the point of intersection
-            vt = (pt[1] - pg[j][1]) / (pg[j + 1][1] - pg[j][1])
-            if pt[0] < (pg[j][0] + vt * (pg[j + 1][0] - pg[j][0])):
+        if (pg[j][1] <= pt[1] < pg[j + 1][1]) or (pg[j][1] > pt[1] >= pg[j + 1][1]):  # compute point of intersection
+            vt = (pt[1] - pg[j][1]) / (pg[j + 1][1] - pg[j][1])  # compute intersect coordinate
+            if pt[0] < (pg[j][0] + vt * (pg[j + 1][0] - pg[j][0])):  # right / left intersect
                 counter += 1
         j += 1
     return counter  # Returns the number of lines crossed
@@ -118,14 +119,13 @@ if __name__ == "__main__":
     ReadFile.create_polygon("polygon.csv")
     ReadFile.create_points("input.csv")
 
-    s = []
-    p = []
     location = [None] * len(point_x)
 
+    # [x,y] coordinates created for polygon and points for ray casting algorithm
     p = generate_coordinates(point_x, point_y)
     s = generate_coordinates(shape_x, shape_y)
 
-    # Locate_points() function applied to generate
+    # Locate_points() function applied to iterate point location over location list
     locate_points(point_x, point_y, shape_x, shape_y, s, p)
 
     # Write the output to a csv file
