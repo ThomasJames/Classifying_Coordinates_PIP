@@ -1,44 +1,17 @@
-from collections import OrderedDict
+from plotter import Plotter
 import matplotlib.pyplot as plt
 
-
-class Plotter:
-
-    def __init__(self):
-        plt.figure()
-
-    def add_polygon(self, xs, ys):
-        plt.fill(xs, ys, 'lightgray', label='Polygon')
-
-    def add_boarder(self, xs, ys):
-        plt.plot(xs, ys, 'salmon', label='boarder')
-
-    def add_point(self, x, y, kind=None):
-        if kind == "outside":
-            plt.plot(x, y, "ro", label='Outside')
-        elif kind == "boundary":
-            plt.plot(x, y, "bo", label='Boundary')
-        elif kind == "inside":
-            plt.plot(x, y, "go", label='Inside')
-        else:
-            plt.plot(x, y, "ko", label='Unclassified')
-
-    def show(self):
-        handles, labels = plt.gca().get_legend_handles_labels()
-        by_label = OrderedDict(zip(labels, handles))
-        plt.legend(by_label.values(), by_label.keys())
-        plt.show()
-
-
+# Function to define minimum and maximum bounds of the polygon, and provide an output that states the location of the point.
+# 
 def minimum_bound(p_x, p_y, a_x, a_y):
     if min(a_x) < p_x < max(a_x) and min(a_y) < p_y < max(a_y):  # is the point within the bounds of the box
         return True
     elif min(a_x) == p_x and min(a_y) <= p_y <= max(a_y):
-        return False
+        return 1
     elif max(a_x) == p_x and min(a_y) <= p_y <= max(a_y):
-        return False
+        return 1
     elif min(a_y) == p_y and min(a_x) <= p_x <= max(a_x):
-        return False
+        return 1
     elif max(a_y) == p_y and min(a_x) <= p_x <= max(a_x):
         return True
     else:
@@ -71,6 +44,7 @@ def is_on_line(p_x, p_y, a_x, a_y, b_x, b_y):
     else:
         return False
 
+
 class ReadFile:
 
     def __init__(self, filename):
@@ -83,7 +57,6 @@ class ReadFile:
                 line = line.strip().split(',')
                 point_x.append(float(line[1]))
                 point_y.append(float(line[2]))
-
 
     def create_polygon(self):
         with open(self, 'r') as f:
@@ -118,8 +91,8 @@ if __name__ == "__main__":
     shape_x = []
     shape_y = []
 
-    ReadFile.read_polygon("polygon.csv")
-    ReadFile.read_points("input.csv")
+    ReadFile.create_polygon("polygon.csv")
+    ReadFile.create_points("input.csv")
 
     s = []
     p = []
@@ -130,15 +103,15 @@ if __name__ == "__main__":
 
     locate_points(point_x, point_y, shape_x, shape_y, s, p)
 
-    plotter = Plotter()
-    for i in range(len(point_x)):
-        plotter.add_point(point_x[i], point_y[i], location[i])
-    plotter.add_polygon(shape_x, shape_y)
-    plotter.show()
-
     # Write the output to a csv file called mbr_output
     output_file = open("output.csv", "w")
     for i in location:
         output_file.write(i + "\n")
 
-
+    plotter = Plotter()
+    for i in range(len(point_x)):
+        plotter.add_point(point_x[i], point_y[i], location[i])
+    plotter.add_polygon(shape_x, shape_y)
+    plt.xlabel("x axis")
+    plt.ylabel("y axis")
+    plotter.show()
