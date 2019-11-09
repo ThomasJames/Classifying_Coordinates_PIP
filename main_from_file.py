@@ -3,6 +3,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+# Class to read the input file of points and polygon
+# filename input takes a csv file
+class ReadFile:
+
+    def __init__(self, filename):
+        self.filename = "filename"
+
+    def access_csv_file(self, pt_x, pt_y):  # Splits data into two lists of x and y for points
+        try:
+            with open(self, 'r') as f:
+                lines = f.readlines()[1:]  # Removes the first line (id,x,y)
+                for line in lines:
+                    line = line.strip().split(',')  # Separates values by commas
+                    pt_x.append(float(line[1]))
+                    pt_y.append(float(line[2]))
+        except IOError:
+            print("Unable to read this file")
+
 
 
 # Function to define minimum and maximum bounds of the polygon
@@ -11,13 +29,17 @@ import seaborn as sns
 def minimum_bound(p_x, p_y, a_x, a_y):
     if min(a_x) < p_x < max(a_x) and min(a_y) < p_y < max(a_y):  # is the point within the bounds of the box
         return True
-    elif min(a_x) == p_x and min(a_y) <= p_y <= max(a_y):  # if point x is equal to minimum x value, and between y values
+    elif min(a_x) == p_x and min(a_y) <= p_y <= max(
+            a_y):  # if point x is equal to minimum x value, and between y values
         return 1
-    elif max(a_x) == p_x and min(a_y) <= p_y <= max(a_y):  # if point x is equal to maximum x value, and between y values
+    elif max(a_x) == p_x and min(a_y) <= p_y <= max(a_y):  # if point x is equal to maximum x value,
+                                                            # and between y values
         return 1
-    elif min(a_y) == p_y and min(a_x) <= p_x <= max(a_x):  # if point y is equal to minimum y value, and between x values
+    elif min(a_y) == p_y and min(a_x) <= p_x <= max(
+            a_x):  # if point y is equal to minimum y value, and between x values
         return 1
-    elif max(a_y) == p_y and min(a_x) <= p_x <= max(a_x):  # if point y is equal to maximum y value, and between x values
+    elif max(a_y) == p_y and min(a_x) <= p_x <= max(
+            a_x):  # if point y is equal to maximum y value, and between x values
         return 1
     else:
         return False  # None of the parameters are met
@@ -56,44 +78,6 @@ def compute_y(x, x1, y1, x2, y2):  # Runs arguments through 'point on a line' eq
     return (x - x1) / (x2 - x1) * (y2 - y1) + y1
 
 
-# Class to read the input file of points and polygon
-# filename input takes a csv file
-class ReadFile:
-
-    def __init__(self, filename):
-        self.filename = "filename"
-
-
-    def create_points(self, pt_x, pt_y):   # Splits data into two lists of x and y for points
-        try:
-            with open(self, 'r') as f:
-                lines = f.readlines()[1:]  # Removes the first line (id,x,y)
-                for line in lines:
-                    line = line.strip().split(',')  # Separates values by commas
-                    pt_x.append(float(line[1]))
-                    pt_y.append(float(line[2]))
-        except IOError:
-            print("Unable to read this file")
-
-    def create_polygon(self, pg_x, pg_y):  # Splits data into two lists of x and y for polygon
-        try:
-            with open(self, 'r') as f:
-                lines = f.readlines()[1:]
-                for line in lines:
-                    line = line.strip().split(',')
-                    pg_x.append(float(line[1]))
-                    pg_y.append(float(line[2]))
-        except IOError:
-            print("Unable to read this file")
-
-
-# Function to take
-def generate_coordinates(p_x, p_y):  # Function to merge x and y lists, in to lists  [x,y]
-    return list(map(lambda x, y: (x, y), p_x, p_y))
-
-def generate_coordinate(p_x, p_y):  # Function to merge x and y point, in to [x,y] form.
-    return map(lambda x, y: (x, y), p_x, p_y)
-
 # Function to call 'minimum bound', 'ray casting' and 'point on a line' functions
 # Locates a bound with respect to the polygon
 # p_x / p_y  - x / y value of point
@@ -101,7 +85,7 @@ def generate_coordinate(p_x, p_y):  # Function to merge x and y point, in to [x,
 # b_x / b_y  - x / y value of end point of line
 # s / p      - [x,y] format from generate_coordinate() function
 def locate_points(p_x, p_y, s_x, s_y, pg, pt, loc):
-    for k in range(len(location)):
+    for k in range(len(loc)):
         if not minimum_bound(p_x[k], p_y[k], s_x, s_y):  # if points are outside maximum bound
             loc[k] = "outside"
         elif (ray_casting(pt[k], pg)) % 2 != 0:  # Points tested by ray casting
@@ -113,6 +97,21 @@ def locate_points(p_x, p_y, s_x, s_y, pg, pt, loc):
                 loc[k] = "boundary"
 
 
+def locate_point(p_x, p_y, s_x, s_y, pt, pg, loc):
+    if (ray_casting(pt, pg)) % 2 != 0:  # Points tested by ray casting
+        loc[0] = "inside"
+    else:
+        loc[0] = "outside"
+    for j in range(len(s_x) - 1):
+        if is_on_line(p_x, p_y, s_x[j], s_y[j], s_x[j + 1], s_y[j + 1]):  # Points tested by "point on line"
+            loc[0] = "boundary"
+
+
+# Function to take
+def generate_coordinates(p_x, p_y):  # Function to merge x and y lists, in to lists  [x,y]
+    return list(map(lambda x, y: (x, y), p_x, p_y))
+
+
 if __name__ == "__main__":
 
     point_x = []
@@ -121,8 +120,8 @@ if __name__ == "__main__":
     shape_y = []
 
     # Input from csv files
-    ReadFile.create_polygon("polygon.csv", shape_x, shape_y)
-    ReadFile.create_points("input.csv", point_x, point_y)
+    ReadFile.access_csv_file("polygon.csv", shape_x, shape_y)
+    ReadFile.access_csv_file("input.csv", point_x, point_y)
 
     location = [None] * len(point_x)
 
@@ -133,12 +132,7 @@ if __name__ == "__main__":
     # Locate_points() function applied to iterate point location over location list
     locate_points(point_x, point_y, shape_x, shape_y, s, p, location)
 
-    # Write the output to a csv file
-    output_file = open("output.csv", "w")
-    for i in location:
-        output_file.write(i + "\n")
-
-    # Points plotted with locations
+    # Points plotted with locations 
     plotter = Plotter()
     for i in range(len(point_x)):
         plotter.add_point(point_x[i], point_y[i], location[i])
@@ -148,4 +142,7 @@ if __name__ == "__main__":
     plt.legend("graph")
     plotter.show()
 
-
+    # Write the output to a csv file
+    output_file = open("output.csv", "w")
+    for i in location:
+        output_file.write(i + "\n")
