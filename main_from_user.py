@@ -14,12 +14,13 @@ if __name__ == "__main__":
     point_coordinates = (point_x, point_y)
     print(point_coordinates)
 
-    answer = input("Would you like to test the default polygon?: ")
+    answer = input("Would you like to test the default polygon? yes/no: ")
     if answer == "yes":
         ReadFile.access_csv_file("polygon.csv", shape_x, shape_y)
         shape_coordinates = generate_coordinates(shape_x, shape_y)
     elif answer == "no":
-        print('no')
+        ReadFile.access_csv_file(str(input("Ok, type in the csv path of your polygon: ")), shape_x, shape_y)
+        shape_coordinates = generate_coordinates(shape_x, shape_y)
     else:
         print("Please enter yes or no.")
 
