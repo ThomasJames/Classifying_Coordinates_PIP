@@ -1,5 +1,6 @@
 from plotter import Plotter
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 
@@ -62,25 +63,26 @@ class ReadFile:
     def __init__(self, filename):
         self.filename = "filename"
 
-    def create_points(self):
-        try:                                                                                               # Splits data into two lists of x and y for points
+
+    def create_points(self, pt_x, pt_y):   # Splits data into two lists of x and y for points
+        try:
             with open(self, 'r') as f:
                 lines = f.readlines()[1:]  # Removes the first line (id,x,y)
                 for line in lines:
                     line = line.strip().split(',')  # Separates values by commas
-                    point_x.append(float(line[1]))
-                    point_y.append(float(line[2]))
+                    pt_x.append(float(line[1]))
+                    pt_y.append(float(line[2]))
         except IOError:
             print("Unable to read this file")
 
-    def create_polygon(self):  # Splits data into two lists of x and y for polygon
+    def create_polygon(self, pg_x, pg_y):  # Splits data into two lists of x and y for polygon
         try:
             with open(self, 'r') as f:
                 lines = f.readlines()[1:]
                 for line in lines:
                     line = line.strip().split(',')
-                    shape_x.append(float(line[1]))
-                    shape_y.append(float(line[2]))
+                    pg_x.append(float(line[1]))
+                    pg_y.append(float(line[2]))
         except IOError:
             print("Unable to read this file")
 
@@ -89,6 +91,8 @@ class ReadFile:
 def generate_coordinates(p_x, p_y):  # Function to merge x and y lists, in to lists  [x,y]
     return list(map(lambda x, y: (x, y), p_x, p_y))
 
+def generate_coordinate(p_x, p_y):  # Function to merge x and y point, in to [x,y] form.
+    return map(lambda x, y: (x, y), p_x, p_y)
 
 # Function to call 'minimum bound', 'ray casting' and 'point on a line' functions
 # Locates a bound with respect to the polygon
@@ -96,17 +100,17 @@ def generate_coordinates(p_x, p_y):  # Function to merge x and y lists, in to li
 # a_x / a_y  - x / y value of start point of line
 # b_x / b_y  - x / y value of end point of line
 # s / p      - [x,y] format from generate_coordinate() function
-def locate_points(p_x, p_y, s_x, s_y, pg, pt):
+def locate_points(p_x, p_y, s_x, s_y, pg, pt, loc):
     for k in range(len(location)):
         if not minimum_bound(p_x[k], p_y[k], s_x, s_y):  # if points are outside maximum bound
-            location[k] = "outside"
+            loc[k] = "outside"
         elif (ray_casting(pt[k], pg)) % 2 != 0:  # Points tested by ray casting
-            location[k] = "inside"
+            loc[k] = "inside"
         else:
-            location[k] = "outside"
+            loc[k] = "outside"
         for j in range(len(s_x) - 1):
             if is_on_line(p_x[k], p_y[k], s_x[j], s_y[j], s_x[j + 1], s_y[j + 1]):  # Points tested by "point on line"
-                location[k] = "boundary"
+                loc[k] = "boundary"
 
 
 if __name__ == "__main__":
@@ -117,8 +121,8 @@ if __name__ == "__main__":
     shape_y = []
 
     # Input from csv files
-    ReadFile.create_polygon("polygon.csv")
-    ReadFile.create_points("input.csv")
+    ReadFile.create_polygon("polygon.csv", shape_x, shape_y)
+    ReadFile.create_points("input.csv", point_x, point_y)
 
     location = [None] * len(point_x)
 
@@ -127,7 +131,7 @@ if __name__ == "__main__":
     s = generate_coordinates(shape_x, shape_y)
 
     # Locate_points() function applied to iterate point location over location list
-    locate_points(point_x, point_y, shape_x, shape_y, s, p)
+    locate_points(point_x, point_y, shape_x, shape_y, s, p, location)
 
     # Write the output to a csv file
     output_file = open("output.csv", "w")
@@ -143,3 +147,5 @@ if __name__ == "__main__":
     plt.ylabel("(y)")
     plt.legend("graph")
     plotter.show()
+
+
