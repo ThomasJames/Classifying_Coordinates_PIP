@@ -9,12 +9,11 @@ if __name__ == "__main__":
     shape_y = []
     point_coordinates = []
     location = [None] * 1
-    point_x = float(input("Input an x coordinate: "))
-    point_y = float(input("Input a y coordinate: "))
-    point_coordinates = (point_x, point_y)
-    print(point_coordinates)
 
-    answer = input("Would you like to test the default polygon? yes/no: ")
+
+    answer = input("Would you like to test the default polygon? (yes/no): ")
+    if answer == None:
+        print("please answer the question (yes/no) ")
     if answer == "yes":
         ReadFile.access_csv_file("polygon.csv", shape_x, shape_y)
         shape_coordinates = generate_coordinates(shape_x, shape_y)
@@ -24,11 +23,15 @@ if __name__ == "__main__":
     else:
         print("Please enter yes or no.")
 
+    point_x = float(input("Input an x coordinate: "))
+    point_y = float(input("Input a y coordinate: "))
+    point_coordinates = (point_x, point_y)
 
 
 
     locate_point(point_x, point_y, shape_x, shape_y, point_coordinates, shape_coordinates, location)
 
+    print("The point you have selected was", str(point_coordinates), "This sits on the", (str(location)[1:-1]))
 
 
 
@@ -41,4 +44,3 @@ if __name__ == "__main__":
     plt.title("what is the point?")
     plotter.show()
 
-    print("The point you have selected was", str(point_coordinates), "This sits on the", (str(location)[1:-1]))
