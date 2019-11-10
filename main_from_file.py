@@ -147,8 +147,7 @@ if __name__ == "__main__":
     plt.title("Point in Polygon Test")
     plotter.show()
 
-
-    # Create an index column to write into a csv file
+    # Prepare an index list for the output csv file
     id = []
     i = 0
     while i < 101:
@@ -157,23 +156,16 @@ if __name__ == "__main__":
     id[0] = "id"
     print(id)
 
+    # Prepare a category list or the output csv file
     a = "Category"
     category.insert(0, a)
     print(category)
 
-    # file = open("output.txt", "w")
-    # for index in range(len(a)):
-    #     file.write(str(id) + ", " + str(category) + "\n")
-    # file.close()
+    newlist = list(map(lambda x, y: [x, y], id, category))
+    print(newlist)
 
-
-    # Write the output to a csv file
-    output_file = open("output.csv", "w")
-    for i in range(len(category)):
-        output_file.write(category[i] + "," + id[i] + "\n")
-   
-
-
-
-
-
+    # write the results into a csv file
+    with open("output.csv", "w") as f:
+        for line in newlist:
+            f.write(str(line))
+            f.write("\n")
