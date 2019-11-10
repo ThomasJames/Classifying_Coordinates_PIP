@@ -18,7 +18,14 @@ class ReadFile:
                     pt_x.append(float(line[1]))
                     pt_y.append(float(line[2]))
         except IOError:
-            print("Unable to read this file")  # Error handling feature if the file is not readable
+            print("Unable to read this file")  # Error handling feature if the file is not readable     
+
+    # Function to merge x and y lists, in to lists  [x,y
+    try:
+        def generate_coordinates(self, p_x, p_y):
+            return list(map(lambda x, y: (x, y), p_x, p_y))
+    except IOError:
+        print("Unable to create coordinates")  # Error handling feature   
 
 
 # Function to define minimum and maximum bounds of the polygon
@@ -27,14 +34,14 @@ class ReadFile:
 def minimum_bound(p_x, p_y, a_x, a_y):
     if min(a_x) < p_x < max(a_x) and min(a_y) < p_y < max(a_y):  # is the point within the bounds of the box
         return True
-    elif min(a_x) == p_x and min(a_y) <= p_y <= max(a_y):  # is the point on the boundary
+    elif min(a_x) == p_x and min(a_y) <= p_y <= max(a_y):
+        return 1  # if point x is equal to minimum x value, and between y values
+    elif max(a_x) == p_x and min(a_y) <= p_y <= max(a_y):
         return 1
-    elif max(a_x) == p_x and min(a_y) <= p_y <= max(a_y):  # is the point on the boundary
-        return 1
-    elif min(a_y) == p_y and min(a_x) <= p_x <= max(a_x):  # is the point on the boundary
+    elif min(a_y) == p_y and min(a_x) <= p_x <= max(a_x):  # if point y is equal to minimum y value -
         return 1  # and between x values
-    elif max(a_y) == p_y and min(a_x) <= p_x <= max(a_x):  # is the point on the boundary
-        return 1  
+    elif max(a_y) == p_y and min(a_x) <= p_x <= max(a_x):  # if point y is equal to maximum y value -
+        return 1  # and between x values
     else:
         return False  # None of the parameters are met
 
@@ -101,9 +108,9 @@ def locate_point(p_x, p_y, s_x, s_y, pt, pg, loc):
             loc[0] = "boundary"  # Assign the string "boundary" to the location variable
 
 
-# Function to merge x and y lists, in to lists  [x,y]
-def generate_coordinates(p_x, p_y):
-    return list(map(lambda x, y: (x, y), p_x, p_y))
+# # Function to merge x and y lists, in to lists  [x,y]
+# def generate_coordinates(p_x, p_y):
+#     return list(map(lambda x, y: (x, y), p_x, p_y))
 
 
 if __name__ == "__main__":
@@ -118,29 +125,55 @@ if __name__ == "__main__":
     ReadFile.access_csv_file("input.csv", point_x, point_y)
 
     # Set the location list to 100 None values, to be iterated over
-    location = [None] * len(point_x)
+    category = [None] * len(point_x)
 
     # x and y points converted into tuple format for ray casting algorithm
-    p = generate_coordinates(point_x, point_y)
-    s = generate_coordinates(shape_x, shape_y)
+    p = ReadFile.generate_coordinates("input.csv", point_x, point_y)
+    s = ReadFile.generate_coordinates("polygon.csv", shape_x, shape_y)
 
     # Locate_points() function applied to iterate point location over location list
-    locate_points(point_x, point_y, shape_x, shape_y, s, p, location)
+    locate_points(point_x, point_y, shape_x, shape_y, s, p, category)
 
-    # Points plotted with locations 
+    # Points plotted with locations
     plotter = Plotter()
     # Loop over each point
     for i in range(len(point_x)):
-        plotter.add_point(point_x[i], point_y[i], location[i])
+        plotter.add_point(point_x[i], point_y[i], category[i])
     plotter.add_polygon(shape_x, shape_y)
     plt.plot(shape_x, shape_y)
     # Apply some annotations
-    plt.xlabel("(x)")
-    plt.ylabel("(y)")
-    plt.title("Wheres the point?")
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.title("Point in Polygon Test")
     plotter.show()
+
+
+    # Create an index column to write into a csv file
+    id = []
+    i = 0
+    while i < 101:
+        id.append(i)
+        i += 1
+    id[0] = "id"
+    print(id)
+
+    a = "Category"
+    category.insert(0, a)
+    print(category)
+
+    # file = open("output.txt", "w")
+    # for index in range(len(a)):
+    #     file.write(str(id) + ", " + str(category) + "\n")
+    # file.close()
+
 
     # Write the output to a csv file
     output_file = open("output.csv", "w")
-    for i in location:
-        output_file.write(i + "\n")
+    for i in range(len(category)):
+        output_file.write(category[i] + "," + id[i] + "\n")
+   
+
+
+
+
+
