@@ -149,23 +149,29 @@ if __name__ == "__main__":
 
     # Prepare an index list for the output csv file
     id = []
-    i = 0
+    i = 1
     while i < 101:
         id.append(i)
         i += 1
-    id[0] = "id"
-    print(id)
+    id = [str(i) for i in id]
 
-    # Prepare a category list or the output csv file
-    a = "Category"
-    category.insert(0, a)
-    print(category)
 
-    newlist = list(map(lambda x, y: [x, y], id, category))
-    print(newlist)
-
-    # write the results into a csv file
     with open("output.csv", "w") as f:
-        for line in newlist:
-            f.write(str(line))
-            f.write("\n")
+        f.write("id" + "," + "Category" + "\n")
+        for i, n in zip(id, category):
+            line = f.writelines(i + "," + n + "\n")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
