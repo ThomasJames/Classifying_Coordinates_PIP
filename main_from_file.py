@@ -148,17 +148,17 @@ if __name__ == "__main__":
     plotter.show()
 
     # Prepare an index list for the output csv file
-    id = []
+    id_number = []
     i = 1
-    while i < 101:
-        id.append(i)
+    while i < (len(category)+1):
+        id_number.append(i)
         i += 1
-    id = [str(i) for i in id]
+    id_number = [str(i) for i in id_number]
 
-
+    # File written to a csv file
     with open("output.csv", "w") as f:
-        f.write("id" + "," + "Category" + "\n")
-        for i, n in zip(id, category):
+        f.write("id" + "," + "Category" + "\n")    # id and category row added
+        for i, n in zip(id_number, category):       # Both id and category lists added in two separate columns.
             line = f.writelines(i + "," + n + "\n")
 
 
