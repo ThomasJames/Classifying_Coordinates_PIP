@@ -41,6 +41,15 @@ lines are crossing on one point.
 3. Categorize this point into “inside”, “outside” and “boundary”;
 4. Plot the point and polygon in a plot window.
 
+# plotter.py
+Class to plot points.
+
+# Input.csv / polygon.csv
+Exmample data 
+
+
+# 
+
 
 
 
