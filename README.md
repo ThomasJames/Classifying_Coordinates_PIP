@@ -3,7 +3,7 @@ Program to take a coordinate, and return the location with respect to a polygon.
 
 ## Here is an example of the output;
 
-![](https://github.com/ThomasJames/2D_Point_Classifier/blob/master/Example%20of%20a%20result.png)
+![](https://github.com/ThomasJames/2D_Point_Classifier/blob/master/Example%20of%20a%20result.png){:height="50%" width="50%"}
 
 ## Minimum Bounding 
 PiP is a computationally intensive operation. Therefore, it is common to first
