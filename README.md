@@ -1,6 +1,10 @@
 # Classifying_Coordinates_PIP
 Program to take a coordinate, and return the location with respect to a polygon. 
 
+## Here is an example of the output;
+
+![](https://github.com/ThomasJames/2D_Point_Classifier/blob/master/Example%20of%20a%20result.png)
+
 ## Minimum Bounding 
 PiP is a computationally intensive operation. Therefore, it is common to first
 get the MBR of a polygon and test whether the point lies inside this rectangle.
