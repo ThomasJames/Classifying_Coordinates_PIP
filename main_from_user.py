@@ -8,21 +8,23 @@ if __name__ == "__main__":
     shape_x = []
     shape_y = []
     point_coordinates = []
-    category = [None] * 1  # Set variable for a single coordinate
+    category = [None] * 1  
 
     # Additional feature to ask user if they would like to use the default polygon, or another polygon.
     answer = input("Would you like to test the default polygon? (yes/no): ")
-    if answer == None: # If no answer is given, then the default polygon is used
+    if answer == None: 
         ReadFile.access_csv_file("polygon.csv", shape_x, shape_y)
         shape_coordinates = ReadFile.generate_coordinates("polygon.csv", shape_x, shape_y)
+    # If yes is given, the default polygon is used    
     if answer == "yes":
-        ReadFile.access_csv_file("polygon.csv", shape_x, shape_y)  # If yes is given, the default polygon is used
+        ReadFile.access_csv_file("polygon.csv", shape_x, shape_y)  
         shape_coordinates = ReadFile.generate_coordinates("polygon.csv", shape_x, shape_y)
-    elif answer == "no":                                           # if no is given, a path is requested from the user
+    # if no is given, a path is requested from the user
+    elif answer == "no":                                           
         x = ReadFile.access_csv_file(str(input("Ok, type in the csv path of your polygon: ")), shape_x, shape_y)
         shape_coordinates = ReadFile.generate_coordinates(x, shape_x, shape_y)
     else:
-        print("Please enter yes or no.")  # Error handling function for if the input is not 'yes' or 'no'
+        print("Please enter yes or no.")  
 
     # Request user input for each x and y coordinate
     point_x = float(input("Input an x coordinate: "))
