@@ -1,5 +1,7 @@
+from typing import List
+
 class PIP:
-    def __init__(self, p_x, p_y, a_x, a_y, b_x, b_y, pt_list, pg):
+    def __init__(self, p_x: float, p_y: float, a_x: float, a_y: float, b_x: float, b_y: float, pt_list: List, pg: List):
         self.p_x = p_x
         self.p_y = p_y
         self.a_x = a_x
@@ -9,14 +11,14 @@ class PIP:
         self.pt_list = pt_list
         self.pg = pg
 
-    def minimum_bound(self):
+    def minimum_bound(self) -> bool:
         if min(self.a_x) < self.p_x < max(self.a_x) and min(self.a_y) < self.p_y < max(self.a_y): 
             return True
         else:
             return False 
 
     # Source: [Franklin, 2000] http://geomalgorithms.com/a03-_inclusion.html
-    def ray_casting(self):
+    def ray_casting(self) -> int: 
         n = len(self.pg) - 1  
         counter = 0  
         for j in range(n):  
@@ -27,7 +29,7 @@ class PIP:
             j += 1
         return counter 
 
-    def is_on_line(self):
+    def is_on_line(self) -> bool:
         if not ((self.a_y <= self.p_y <= self.b_y or self.b_y <= self.p_y <= self.a_y) and
                 (self.a_x <= self.p_x <= self.b_x or self.b_x <= self.p_x <= self.a_x)):
             return False                
@@ -38,10 +40,10 @@ class PIP:
         else:
             return False 
         
-    def compute_y(self, x, x1, y1, x2, y2):
+    def compute_y(self, x, x1, y1, x2, y2) -> float:
         return (x - x1) / (x2 - x1) * (y2 - y1) + y1
 
-    def locate_points(self):
+    def locate_points(self) -> str:
         loc = [None] * len(self.pt_list)
         for k in range(len(loc)):
             if not self.minimum_bound(self.p_x[k],
@@ -63,7 +65,7 @@ class PIP:
                                    self.s_y[j + 1]):  
                     loc[k] = "boundary"
 
-    def locate_point(self):
+    def locate_point(self) -> str:
         loc = [None]* len(self.pt_list)
         if (self.ray_casting(self.pt_list, self.pg)) % 2 != 0:  # Points tested by ray casting
             loc[0] = "inside"
